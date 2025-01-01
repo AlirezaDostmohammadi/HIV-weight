@@ -1,16 +1,19 @@
 # HIV-weight
 
 ## PICRUSt2 Pipeline with Nextflow
-The pipeline consists of two key workflows to preprocess ASV/OTU table and sequencing file (FASTA file) to filter rare ASVs and low depth samples, to to predict functional abundances based on ASVs/OTUs :
+The pipeline consists of two workflows to preprocess an ASV/OTU table and sequencing file (FASTA file) and to predict functional abundances based on ASVs/OTUs:
 
 1. QIIME2 Preprocessing Workflow
    - Filters features and samples based on total frequency thresholds (default: min_feature_abundance=15, min_samples_abundance=1500).
 
 2. PICRUSt2 Workflow
-   - Places ASVs into a reference tree.
-   - Predicts hidden states of gene families (e.g., KO, EC).
-   - Generates metagenome predictions.
-   - Performs pathway-level inference and adds functional descriptions.
+   - Maps ASVs/OTUs onto a reference phylogenetic tree.
+   - Predicts hidden states for gene families, including:
+     - Predicted 16S rRNA gene copy number for each ASV/OTU
+     - Predicted copy numbers for KEGG Orthology (KO) numbers
+     - Predicted copy numbers for Enzyme Classification (EC) numbers
+3. Produces metagenome functional prediction
+4. Performs pathway-level inference and annotates with detailed functional descriptions
 
 ### Requirements
 To execute the pipeline, the following tools are required:
