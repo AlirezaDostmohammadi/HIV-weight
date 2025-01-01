@@ -62,3 +62,7 @@ python calculate_kegg_pathway_abundance.py --ko_abundance /path/to/KO_pred_metag
 ## Differential Abundance Analysis using ALDEx2
 This pipeline performs differential abundance analysis of KEGG pathways using <a href='https://www.bioconductor.org/packages/release/bioc/html/ALDEx2.html'>ALDEx2</a>.</br>
 To run the pipeline, provide the metadata file and KEGG pathways abundance file as inputs in the <a href='differential_abundance_analysis/differential_abundance_analysis_aldex.R'>differential_abundance_analysis_aldex.R</a> script.
+
+### Required R Packages:
+- ALDEx2
+- dplyr
