@@ -51,9 +51,14 @@ The <a href='kegg_mapping/calculate_kegg_pathway_abundance.py'>calculate_kegg_pa
 ### How to run the Post-Processing Steps:
 1. Mapping KO Numbers to KEGG Pathways:
 ```
+
 python map_ko_to_kegg_pathways.py --input /path/to/KO_pred_metagenome_unstrat.tsv.gz
 ```
 2. Calculating KEGG Pathway Abundances
 ```
 python calculate_kegg_pathway_abundance.py --ko_abundance /path/to/KO_pred_metagenome_unstrat.tsv.gz --mapping_file /path/to/ko_to_kegg_mapping.csv
 ```
+
+## Differential Abundance Analysis using ALDEx2
+This pipeline performs differential abundance analysis of KEGG pathways using <a href='https://www.bioconductor.org/packages/release/bioc/html/ALDEx2.html'>ALDEx2</a>.</br>
+To run the pipeline, provide the metadata file and KEGG pathways abundance file as inputs in the <a href='differential_abundance_analysis/differential_abundance_analysis_aldex.R'>differential_abundance_analysis_aldex.R</a> script.
