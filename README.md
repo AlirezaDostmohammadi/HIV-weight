@@ -13,7 +13,7 @@ The pipeline consists of two workflows to preprocess an ASV/OTU table and sequen
      - Predicted copy numbers for KEGG Orthology (KO) numbers
      - Predicted copy numbers for Enzyme Classification (EC) numbers
 3. Produces metagenome functional prediction
-4. Performs pathway-level inference and annotates with detailed functional descriptions
+4. Performs pathway-level inference and annotates with detailed functional descriptions (EC numbers to MetaCyc pathways)
 
 ### Requirements
 To execute the pipeline, the following tools are required:
@@ -33,4 +33,27 @@ nextflow run preprocessing.nf --biom_table /path/to/{ASV|OTU}.biom --seq /path/t
 Use the <a href='PICRUSt2.pipeline/picrust2_pipeline.nf'>picrust2_pipeline.nf</a> script to perform functional prediction:
 ```
 nextflow run picrust2_pipeline.nf --biom_table /path/to/{ASV|OTU}.filtered_samples_based_total.frequency.biom --seq /path/to/sequences.filtered.fasta --cpu 10
+```
+
+## Post-Processing Steps
+PICRUSt2 generates predicted functional profiles in terms of KEGG Orthology (KO) numbers, but it does not directly provide pathway-level abundances. To obtain pathway abundances, you need to follow these steps:
+
+### Map KO Numbers to KEGG Pathways
+The <a href='kegg_mapping/map_ko_to_kegg_pathways.py'>map_ko_to_kegg_pathways.py</a> maps KEGG Orthology (KO) numbers to KEGG pathways using the KEGG API. This step generates a mapping file (<a href='kegg_mapping/ko_to_kegg_mapping.csv'>ko_to_kegg_mapping.csv</a>) required for pathway-level abundance aggregation.
+
+### Calculating KEGG Pathway Abundances
+The <a href='kegg_mapping/calculate_kegg_pathway_abundance.py'>calculate_kegg_pathway_abundance.py</a> aggregates KO abundances at the KEGG pathway level using the mapping file created in the previous step. The output file name is `KEGG_path_abun_unstrat.csv`
+
+### Required python packages:
+- bioservices
+- pandas
+
+### How to run the Post-Processing Steps:
+1. Mapping KO Numbers to KEGG Pathways:
+```
+python map_ko_to_kegg_pathways.py --input /path/to/KO_pred_metagenome_unstrat.tsv.gz
+```
+2. Calculating KEGG Pathway Abundances
+```
+python calculate_kegg_pathway_abundance.py --ko_abundance /path/to/KO_pred_metagenome_unstrat.tsv.gz --mapping_file /path/to/ko_to_kegg_mapping.csv
 ```
