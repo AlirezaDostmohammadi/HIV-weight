@@ -18,16 +18,16 @@ To execute the pipeline, the following tools are required:
 - <a href='https://qiime2.org/'>QIIME2</a>
 - <a href='https://github.com/picrust/picrust2'>PICRUSt2</a>
 - Python
-- Python (with the biom-format package installed)
+- Python (with the <a href='https://pypi.org/project/biom-format/'>biom-format</a> package installed)
 
 ### How to Run the Pipeline
-1. Run the preprocessing workflow:
-Use the preprocessing.nextflow script to prepare the input files:
+1. Run the preprocessing workflow:</br>
+Use the <a href='/PICRUSt2.pipeline/preprocessing.nf'>preprocessing.nf</a> script to prepare the input files:
 ```
-nextflow run preprocessing.nextflow --biom_table /path/to/biom --seq /path/to/sequences --min_feature_abundance 15 --min_samples_abundance 1500
+nextflow run preprocessing.nf --biom_table /path/to/{ASV|OTU}.biom --seq /path/to/sequences.fasta --min_feature_abundance 15 --min_samples_abundance 1500
 ```
-2. Run the PICRUSt2 workflow
-Use the picrust.nextflow script to perform functional prediction:
+2. Run the PICRUSt2 workflow: </br>
+Use the <a href='PICRUSt2.pipeline/picrust2_pipeline.nf'>picrust2_pipeline.nf</a> script to perform functional prediction:
 ```
-nextflow run picrust.nextflow --biom_table /path/to/biom --seq /path/to/sequences --cpu 10
+nextflow run picrust2_pipeline.nf --biom_table /path/to/{ASV|OTU}.filtered_samples_based_total.frequency.biom --seq /path/to/sequences.filtered.fasta --cpu 10
 ```
