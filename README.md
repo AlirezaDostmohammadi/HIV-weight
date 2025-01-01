@@ -22,9 +22,9 @@ The pipeline requires the following tools and environments:
 
 ### How to Run the Pipeline
 1. Run the preprocessing workflow (preprocessing.nextflow)
-   ```
+```
 nextflow run preprocessing.nextflow --biom_table /path/to/biom --seq /path/to/sequences --min_feature_abundance 15 --min_samples_abundance 1500
-   ```
+```
 2. Run the PICRUSt2 workflow
 ```
 nextflow run picrust.nextflow --biom_table /path/to/biom --seq /path/to/sequences --cpu 10
